@@ -9,8 +9,8 @@ LocalLens is a location-aware Android news app that fetches live articles from t
 
 ## Screenshots
 
-![App screenshot](Screenshots/Screenshot%202026-08-01%20001332.png)
-![App screenshot](Screenshots/Screenshot%202026-08-01%20001347.png)
+![App screenshot](Screenshot%202026-08-01%20001332.png)
+![App screenshot](Screenshot%202026-08-01%20001347.png)
 
 ## Features
 
