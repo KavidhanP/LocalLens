@@ -1,0 +1,65 @@
+<!--
+    ic_splash_logo.xml
+    Custom LocalLens splash screen icon — a globe with a magnifying lens overlay.
+    This appears centred on the blue (#2563EB) splash background.
+    Size: 108dp x 108dp as required by the Android adaptive icon spec.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Globe circle base -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,18 A36,36 0 1,0 54,90 A36,36 0 1,0 54,18 Z" />
+
+    <!-- Globe horizontal latitude line (middle) -->
+    <path
+        android:fillColor="#2563EB"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="2"
+        android:pathData="M20,54 Q54,46 88,54" />
+
+    <!-- Globe horizontal latitude line (upper) -->
+    <path
+        android:fillColor="#2563EB"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="1.5"
+        android:pathData="M28,38 Q54,32 80,38" />
+
+    <!-- Globe horizontal latitude line (lower) -->
+    <path
+        android:fillColor="#2563EB"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="1.5"
+        android:pathData="M28,70 Q54,76 80,70" />
+
+    <!-- Globe vertical meridian (centre) -->
+    <path
+        android:fillColor="#2563EB"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="2"
+        android:pathData="M54,18 Q46,54 54,90" />
+
+    <!-- Globe outline -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="2.5"
+        android:pathData="M54,18 A36,36 0 1,0 54,90 A36,36 0 1,0 54,18 Z" />
+
+    <!-- Magnifying lens circle handle -->
+    <path
+        android:fillColor="#F43F5E"
+        android:pathData="M76,72 L86,84 A3,3 0 0,1 82,88 L72,76 Z" />
+
+    <!-- Magnifying lens circle ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#F43F5E"
+        android:strokeWidth="3.5"
+        android:pathData="M68,58 A12,12 0 1,0 68,82 A12,12 0 1,0 68,58 Z" />
+
+</vector>
