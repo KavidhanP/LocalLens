@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.gms.google-services")
 }
 
 // Safely load WORLD_NEWS_API_KEY from local.properties
@@ -14,12 +15,13 @@ if (localPropertiesFile.exists()) {
 }
 val apiKey: String = localProperties.getProperty("WORLD_NEWS_API_KEY") ?: ""
 
+val webClientId: String = localProperties.getProperty("WEB_CLIENT_ID") ?: ""
+
 android {
     namespace = "com.prog7314.locallens"
     compileSdk = 37
 
     defaultConfig {
-
         applicationId = "com.prog7314.locallens"
         minSdk = 24
         targetSdk = 36
@@ -27,9 +29,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        
-        // Expose the API key to Kotlin code via BuildConfig.WORLD_NEWS_API_KEY
+
         buildConfigField("String", "WORLD_NEWS_API_KEY", "\"$apiKey\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"$webClientId\"")
     }
 
     buildTypes {
@@ -56,7 +58,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
-    
+
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -77,8 +79,22 @@ dependencies {
     // Location Services
     implementation(libs.play.services.location)
 
-    // Testing
+    // Firebase, Auth & Credentials
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.kotlinx.coroutines.play.services)
 
+    // Biometrics & DataStore
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

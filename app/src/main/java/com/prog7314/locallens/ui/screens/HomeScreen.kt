@@ -50,6 +50,13 @@ import com.prog7314.locallens.ui.viewmodel.NewsViewModel
 
 import com.prog7314.locallens.ui.components.PermissionDeniedCard
 
+import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import com.prog7314.locallens.ui.components.SecurityDialog
+
 /**
  * Main Home screen layout
  */
@@ -58,7 +65,10 @@ import com.prog7314.locallens.ui.components.PermissionDeniedCard
 fun HomeScreen(
     viewModel: NewsViewModel,
     onRequestLocationPermission: () -> Unit,
-    onOpenAppSettings: () -> Unit
+    onOpenAppSettings: () -> Unit,
+    isBiometricEnabled: Boolean,
+    onToggleBiometric: (Boolean) -> Unit,
+    onSignOutClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val selectedCountry by viewModel.selectedCountry.collectAsState()
@@ -68,8 +78,9 @@ fun HomeScreen(
     val selectedCategory by viewModel.selectedCategory.collectAsState()
     val locationPermissionDenied by viewModel.locationPermissionDenied.collectAsState()
 
-
     var showCountryDialog by remember { mutableStateOf(false) }
+    var showSecurityDialog by remember { mutableStateOf(false) }
+    var showMenu by remember { mutableStateOf(false) }
 
     if (showCountryDialog) {
         CountryPickerDialog(
@@ -78,6 +89,14 @@ fun HomeScreen(
                 viewModel.onCountrySelected(country)
             },
             onDismissRequest = { showCountryDialog = false }
+        )
+    }
+
+    if (showSecurityDialog) {
+        SecurityDialog(
+            isBiometricEnabled = isBiometricEnabled,
+            onToggleBiometric = onToggleBiometric,
+            onDismissRequest = { showSecurityDialog = false }
         )
     }
 
@@ -105,6 +124,43 @@ fun HomeScreen(
                             contentDescription = "Refresh"
                         )
                     }
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "More options"
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Security & Biometrics") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Security,
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                showSecurityDialog = true
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Sign Out") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.Logout,
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                onSignOutClick()
+                            }
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -113,6 +169,7 @@ fun HomeScreen(
                 )
             )
         }
+
     ) { innerPadding ->
         Column(
             modifier = Modifier
